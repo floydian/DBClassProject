@@ -4,9 +4,10 @@
 */
 
 /*
-	Establishes connection to the database.
+	Bringing in the database.
 */
 require_once('../includes/db.php');
+
 
 /*
 	Provides access to the user databse table.
@@ -16,7 +17,10 @@ require_once('../includes/db.php');
 */
 require_once('../includes/user.php');
 
+
 $p = $_REQUEST['p'] ?? null;
+// url.com/?name=foo&blah=1
+
 
 
 $main_content = [
@@ -49,13 +53,19 @@ function set_some_other_content($html) {
 }
 */
 
+
+// SUPER IMPORTANT
+// index.php?p=new_page_name
+
 // All pages on the site are loaded from here. index.php?p=login or index.php?p=new_page
 switch ($p) {
-	
+		
+	case 'new_page_name': require_once('../pages/new_page_name.php'); break;
+		
 	case 'login': require_once('../pages/login.php'); break;
 	
 	// Check user's logged in status. If not logged in, gracefully fail.
-	case 'new_page': /* require_once('./pages/new_page.php') */ break;;
+	case 'new_page': /* require_once('./pages/new_page.php') */ break;
 	
 }
 
