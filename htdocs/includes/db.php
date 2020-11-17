@@ -18,10 +18,7 @@ return $conn;
 try{
 	$conn = db_connect();
 	
-	
-	/*
-		put your code
-	*/
+	//	put your code
 	
     } catch (Exception $e) {
 	echo 'Caught Exception: ', $e->getMessage(), "\n";
