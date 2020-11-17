@@ -14,11 +14,19 @@ if (!$conn) {
 return $conn;
 }
 
-
+/*
 try{
 	$conn = db_connect();
+	
+	
+	/*
+		put your code
+	*/
+	
     } catch (Exception $e) {
 	echo 'Caught Exception: ', $e->getMessage(), "\n";
-	}	
+	}
+*/	
 
-?>
+
+// down here
