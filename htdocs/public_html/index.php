@@ -66,6 +66,7 @@ switch ($p) {
 		
 	case 'login': require_once('../pages/login.php'); break;
 		
+	case 'register': require_once('../pages/register.php'); break;
 	
 	case 'gym': require_once('../pages/gym.php'); break; // return;
 	
