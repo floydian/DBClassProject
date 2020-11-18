@@ -14,7 +14,7 @@
 // scope. You can still do $dbh = db_connect(); as before.
 // But now, once db_connect() is called, DB::$conn will be available as well.
 class DB {
-	static public $conn;
+	static public $conn = null;
 }
 
 
