@@ -28,6 +28,8 @@ $main_content = [
 	'page_body' => '',
 	'error_message' => '',
 	'some_other_content' => '',
+	'defense' => '',
+	'strength' => '',
 ];
 
 
@@ -63,6 +65,9 @@ switch ($p) {
 	case 'new_page_name': require_once('../pages/new_page_name.php'); break;
 		
 	case 'login': require_once('../pages/login.php'); break;
+		
+	
+	case 'gym': require_once('../pages/gym.php'); break; // return;
 	
 	// Check user's logged in status. If not logged in, gracefully fail.
 	case 'new_page': /* require_once('./pages/new_page.php') */ break;
@@ -78,6 +83,11 @@ echo <<<EOT
 <body>
 
 <h1>{$main_content['page_title']}</h1>
+
+<!-- left panel which has user stat data in it -->
+Strength: {$main_content['strength']}
+Defense: {$main_content['defense']}
+
 
 <main>
 {$main_content['page_body']}
