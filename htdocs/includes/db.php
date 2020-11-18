@@ -21,7 +21,7 @@ class DB {
 
 function db_connect() {
 DB::$conn = mysqli_connect("localhost", "db_project_user", "db_project_pass","db_class_project");
-if (!$conn) {
+if (!DB::$conn) {
    throw new Exception("Failed to Connect: " . mysqli_connect_error());
 	     }
 return DB::$conn;
