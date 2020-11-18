@@ -1,5 +1,5 @@
 CREATE TABLE `db_class_project`.`user` (
-  `userid` INT UNSIGNED NOT NULL,
+  `userid` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `display_name` VARCHAR(30) NULL,
   `login_name` VARCHAR(30) NOT NULL,
   `password` VARCHAR(97) NOT NULL,
