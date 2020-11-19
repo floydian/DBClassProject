@@ -8,7 +8,6 @@
 */
 require_once('../includes/db.php');
 
-
 /*
 	Provides access to the user databse table.
 	This included script should not check logged in status because we may be logging in below.
@@ -64,6 +63,8 @@ switch ($p) {
 		
 	case 'new_page_name': require_once('../pages/new_page_name.php'); break;
 		
+	case 'home': require_once('../pages/home.php'); break;
+		
 	case 'login': require_once('../pages/login.php'); break;
 		
 	case 'register': require_once('../pages/register.php'); break;
@@ -79,28 +80,22 @@ echo <<<EOT
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Game Title</title>
+  <title>Query With The Fishes - {$main_content['page_title']}</title>
 </head>
 <body>
-
 <h1>{$main_content['page_title']}</h1>
-
 <!-- left panel which has user stat data in it -->
 Strength: {$main_content['strength']}
 Defense: {$main_content['defense']}
-
-
 <main>
 {$main_content['page_body']}
 </main>
-
 <div class="error_message">
 {$main_content['error_message']}
 </div>
 </body>
 </html>
 EOT;
-
 
 
 
