@@ -7,6 +7,10 @@ Wayne Fincher
 Created and managed GitHub project repository.
 Coded htdocs/public_html/index.php page.
 Coded htdocs/pages/register.php
+Coded htdocs/pages/login.php.
+Coded htdocs/pages/logout.php
+Coded htdocs/pages/home.php (code the stub)
+Coded htdocs/includes/user.php
 
 Joshua Friedman
 
