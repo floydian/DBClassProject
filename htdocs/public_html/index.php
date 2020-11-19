@@ -63,8 +63,6 @@ switch ($p) {
 		
 	case 'new_page_name': require_once('../pages/new_page_name.php'); break;
 		
-	case 'home': require_once('../pages/home.php'); break;
-		
 	case 'login': require_once('../pages/login.php'); break;
 		
 	case 'register': require_once('../pages/register.php'); break;
@@ -73,6 +71,9 @@ switch ($p) {
 	
 	// Check user's logged in status. If not logged in, gracefully fail.
 	case 'new_page': /* require_once('./pages/new_page.php') */ break;
+		
+	case 'home':
+	default: require_once('../pages/home.php'); break;
 	
 }
 
