@@ -11,13 +11,13 @@ try {
 }
 
 
-if (! ($user = user_get()) ) {
-	
+try {
+	$user = User::load();
+} catch (Exception $error) {
 	set_error_message(<<<EOT
 You're not logged in. Please login in here: <a href="index.php?p=login">Login</a>
 EOT
 	);
-	
 	return; // Exits the included script and allows the rest of index.php to execute.
 }
 
@@ -55,4 +55,17 @@ Train defense<br>
 $training_result
 EOT
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
 
