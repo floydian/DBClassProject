@@ -29,6 +29,7 @@ $main_content = [
 	'some_other_content' => '',
 	'defense' => '',
 	'strength' => '',
+	'display_name' => '',
 ];
 
 
@@ -43,6 +44,15 @@ function set_page_body($html) {
 function set_error_message($html) {
 	global $main_content;
 	$main_content['error_message'] = $html;
+}
+function set_display_name($html) {
+	global $main_content;
+	$main_content['display_name'] = $html;
+}
+function set_stats($stats_array) {
+	global $main_content;
+	$main_content['strength'] = $stats_array['strength'];
+	$main_content['defense'] = $stats_array['defense'];
 }
 
 /*
@@ -86,8 +96,10 @@ echo <<<EOT
 <body>
 <h1>{$main_content['page_title']}</h1>
 <!-- left panel which has user stat data in it -->
-Strength: {$main_content['strength']}
+Name: {$main_content['display_name']}<br>
+Strength: {$main_content['strength']}<br>
 Defense: {$main_content['defense']}
+<hr>
 <main>
 {$main_content['page_body']}
 </main>
