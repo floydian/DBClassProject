@@ -96,7 +96,7 @@ echo <<<EOT
 <body>
 <h1>{$main_content['page_title']}</h1>
 <!-- left panel which has user stat data in it -->
-Name: {$main_content['display_name']}<br>
+Name: {$main_content['display_name']} - <a href="index.php?p=logout">Logout</a><br>
 Strength: {$main_content['strength']}<br>
 Defense: {$main_content['defense']}
 <hr>
