@@ -15,6 +15,7 @@ try {
 try {
 	$user = User::load();
 } catch (Exception $error) {
+	$message = 'You are not logged in.';
 	require('login.php');
 	return;
 }
