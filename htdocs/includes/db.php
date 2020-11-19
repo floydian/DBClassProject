@@ -20,11 +20,13 @@ class DB {
 
 
 function db_connect() {
-DB::$conn = mysqli_connect("localhost", "db_project_user", "db_project_pass","db_class_project");
-if (!DB::$conn) {
-   throw new Exception("Failed to Connect: " . mysqli_connect_error());
-	     }
-return DB::$conn;
+	if (is_null(DB::$conn)) {
+		DB::$conn = mysqli_connect("localhost", "db_project_user", "db_project_pass","db_class_project");
+		if (!DB::$conn) {
+			throw new Exception("Failed to Connect: " . mysqli_connect_error());
+		}
+	}
+	return DB::$conn;
 }
 
 
