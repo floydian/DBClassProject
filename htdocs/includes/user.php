@@ -276,6 +276,7 @@ class User implements Serializable {
 		}
 		$_SESSION['user'] = unserialize($_SESSION['user']);
 		set_display_name($_SESSION['user']->display_name);
+		return $_SESSION['user'];
 	}
 	
 	static public function logout() {
