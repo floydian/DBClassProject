@@ -73,6 +73,8 @@ switch ($p) {
 		
 	case 'new_page_name': require_once('../pages/new_page_name.php'); break;
 		
+	case 'add_users': require_once('../pages/add_users.php'); break;
+		
 	case 'login': require_once('../pages/login.php'); break;
 		
 	case 'logout': require_once('../pages/logout.php'); break;
@@ -96,11 +98,22 @@ echo <<<EOT
   <title>Query With The Fishes - {$main_content['page_title']}</title>
 </head>
 <body>
+<header>
 <h1>{$main_content['page_title']}</h1>
 <!-- left panel which has user stat data in it -->
+<div>
 Name: {$main_content['display_name']} - <a href="index.php?p=logout">Logout</a><br>
 Strength: {$main_content['strength']}<br>
 Defense: {$main_content['defense']}
+</div>
+<nav>
+	<ul>
+		<li><a href="index.php?p=home">Home</a></li>
+		<li><a href="index.php?p=gym">Gym</a></li>
+		<li><a href="index.php?p=add_users">Add Test Users</a></li>
+	</ul>
+</header>
+
 <hr>
 <main>
 {$main_content['page_body']}
