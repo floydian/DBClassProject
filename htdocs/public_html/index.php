@@ -72,6 +72,8 @@ function set_some_other_content($html) {
 switch ($p) {
 		
 	case 'new_page_name': require_once('../pages/new_page_name.php'); break;
+	
+	case 'user_list': require_once('../pages/user_list.php'); break;
 		
 	case 'add_users': require_once('../pages/add_users.php'); break;
 		
@@ -109,6 +111,7 @@ Defense: {$main_content['defense']}
 <nav>
 	<ul>
 		<li><a href="index.php?p=home">Home</a></li>
+		<li><a href="index.php?p=user_list">Player List</a></li>
 		<li><a href="index.php?p=gym">Gym</a></li>
 		<li><a href="index.php?p=add_users">Add Test Users</a></li>
 	</ul>
