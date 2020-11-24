@@ -59,7 +59,7 @@ if ($can_create_users) {
 		];
 		$joindate->modify('+1day');
 		$joindate->modify(sprintf('%d:%02dpm', random_int(1,10), random_int(0,59)));
-		$lastlogin->modify(sprintf('2020-11-%02d', random_int(1,23)));
+		$lastlogin->modify(sprintf('2020-11-%02d %d:%02dp', random_int(1,23), random_int(1,10), random_int(0,59)));
 	}
 
 
