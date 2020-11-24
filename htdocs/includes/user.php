@@ -239,6 +239,12 @@ class User implements Serializable {
 				unset($data['password']);
 				self::startSession();
 				$_SESSION['user'] = new self($data);
+				
+				$stmt =  $conn->stmt_init();
+				if ($stmt->prepare('update user set last_login = now() where userid = ?') &&
+				$stmt->bind_param('s', $_SESSION['user']->userid) &&
+				$stmt->execute()) {} else {print_r($stmt->error_list); die;}
+				$stmt->close();
 				return $_SESSION['user'];
 			}
 			$stmt->close();
