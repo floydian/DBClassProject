@@ -64,19 +64,43 @@ if ($can_create_users) {
 
 
 	$stmt =  $conn->stmt_init();
+	$userids = [];
 	if ($stmt->prepare('insert into user (login_name, display_name, password, email, join_date, last_login) values (?, ?, ?, ?, ?, ?)')) {
-		foreach ($data as $datum) {
+		foreach ($data as $key => $datum) {
 			if ($stmt->bind_param('ssssss', $datum['login_name'], $datum['display_name'],
 			$datum['password'], $datum['email'], $datum['join_date'], $datum['last_login'])) {
 				if (!$stmt->execute()) {
 					//print_r($stmt->error_list);
+				} else {
+					$userids[$key] = $conn->insert_id;
 				}
 			} else {
-				echo "bind_param error";
+				echo "outer bind_param error";
 			}
 		}
+		
+		$stmt->close();
+		$stmt =  $conn->stmt_init();
+		if ($stmt->prepare('insert into user_stat (userid, strength, defense, speed, dexterity) values (?, 1,1,1,1)')) {
+			foreach ($data as $key => $datum) {
+				if ($stmt->bind_param('s', $userids[$key])) {
+					if (!$stmt->execute()) {
+						//print_r($stmt->error_list);
+					} else {
+						// userid, strength, defense, speed, dexterity
+						if (!$stmt->execute()) {
+							//print_r($stmt->error_list);
+						}
+					}
+				} else {
+					echo "inner bind_param error";
+				}
+			}
+		} else {
+			echo "inner prepared statement error";
+		}
 	} else {
-		echo "prepared statement error";
+		echo "outer prepared statement error";
 	}
 	$stmt->close();
 	$message = '100 users added to the game.<br>';
