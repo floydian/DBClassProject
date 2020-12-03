@@ -263,7 +263,13 @@ class User implements Serializable {
 				if ($stmt->prepare('select * from user_stat where userid = ?') &&
 				$stmt->bind_param('s', $_SESSION['user']->userid) &&
 				$stmt->execute()) {
-					
+					$stats_result= $stmt->get_result();
+					$stats = $stats_result->fetch_array(MYSQLI_ASSOC);
+					var_dump($stats);
+					$_SESSION['user']->strength = $stats['strength'];
+					$_SESSION['user']->defense = $stats['defense'];
+					$_SESSION['user']->speed = $stats['speed'];
+					$_SESSION['user']->dexterity = $stats['dexterity'];
 				} else {print_r($stmt->error_list); die;}
 				$stmt->close();
 				return $_SESSION['user'];
