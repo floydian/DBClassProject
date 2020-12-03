@@ -40,6 +40,7 @@ set_page_body(<<<EOT
 	<input type="submit" value="Login">
 </form>
 <p>$message</p>
+<p>Need to create an account? <a href="index.php?p=register">Create one here.</a></p>
 EOT
 );
 
