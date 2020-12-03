@@ -30,6 +30,7 @@ class User implements Serializable {
 	const USER_LOGIN_INVALID		= 1 << 19;
 	const SESSION_ALREADY_STARTED	= 1 << 20;
 	const USER_NOT_LOGGED_IN		= 1 << 21;
+	const CANT_CREATE_USER_STAT		= 1 << 22;
 	// END OF ERROR BIT FLAGS
 	
 	const LOGIN_NAME_MIN_LENGTH = 6;
@@ -165,14 +166,25 @@ class User implements Serializable {
 		if ($create_errors === self::NO_ERROR) {
 			$stmt =  $conn->stmt_init();
 			$hashed_password = self::passHash($config['password']);
-			if ( !$stmt->prepare('insert into user (login_name, display_name, password, email) values (?, ?, ?, ?)') 			||
+			if ( !$stmt->prepare('insert into user (login_name, display_name, password, email) values (?, ?, ?, ?)') 		||
 			!$stmt->bind_param('ssss', $config['login_name'], $config['display_name'], $hashed_password, $config['email']) 	||
-			!$stmt->execute() 																		||
+			!$stmt->execute() 																								||
 			!($userid = $conn->insert_id)
 			) {
 				$create_errors |= self::CANT_CREATE_USER;
 			} else {
 				$stmt->close();
+				
+				// userid, strength, defense, speed, dexterity
+				$stmt =  $conn->stmt_init();
+				if ( !$stmt->prepare('insert into user_stat (userid, strength, defense, speed, dexterity) values (?, 1,1,1,1)')	||
+				!$stmt->bind_param('s', $userid) 																		||
+				!$stmt->execute()
+				) {
+					$create_errors |= self::CANT_CREATE_USER_STAT;
+				} else {
+					$stmt->close();
+				}
 			}
 		}
 		
@@ -245,6 +257,15 @@ class User implements Serializable {
 				$stmt->bind_param('s', $_SESSION['user']->userid) &&
 				$stmt->execute()) {} else {print_r($stmt->error_list); die;}
 				$stmt->close();
+				
+				// userid, strength, defense, speed, dexterity
+				$stmt =  $conn->stmt_init();
+				if ($stmt->prepare('select * from user_stat where userid = ?') &&
+				$stmt->bind_param('s', $_SESSION['user']->userid) &&
+				$stmt->execute()) {
+					
+				} else {print_r($stmt->error_list); die;}
+				$stmt->close();
 				return $_SESSION['user'];
 			}
 			$stmt->close();
@@ -299,6 +320,14 @@ class User implements Serializable {
 	
 	public $premium_status;
 	
+	public $strength;
+	
+	public $defense;
+	
+	public $speed;
+	
+	public $dexterity;
+	
 	public function __construct($config) {
 		$this->userid = $config['userid'] ?? null;
 		$this->display_name = $config['display_name'] ?? null;
@@ -314,6 +343,10 @@ class User implements Serializable {
 			$this->join_date,
 			$this->last_login,
 			$this->premium_status,
+			$this->strength,
+			$this->defense,
+			$this->speed,
+			$this->dexterity,
 		]);
 	}
 	
@@ -323,7 +356,11 @@ class User implements Serializable {
 			$this->display_name,
 			$this->join_date,
 			$this->last_login,
-			$this->premium_status
+			$this->premium_status,
+			$this->strength,
+			$this->defense,
+			$this->speed,
+			$this->dexterity
 		) = unserialize($data);
 	}
 	
