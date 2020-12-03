@@ -81,7 +81,7 @@ if (!is_null($login_name) && !is_null($password) && !is_null($display_name) && !
 		if ($error_code & User::PASSWORD_TOO_SHORT) {
 			$message .= sprintf('The password must be at least %d characters long.<br>', User::PASSWORD_MIN_LENGTH);
 		}
-		if ( ($error_code & User::NO_DB_CONNECTION) || ($error_code & User::CANT_CREATE_USER) ) {
+		if ( ($error_code & User::NO_DB_CONNECTION) || ($error_code & User::CANT_CREATE_USER) || ($error_code & User::CANT_CREATE_USER_STAT) ) {
 			$message .= 'The game is not able to register new users at this time. Please check back soon.<br>';
 		}
 		if (strlen($message) > 0) {
