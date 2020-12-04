@@ -2,9 +2,12 @@
 
 set_page_title("Gym");
 $training_result = '';
+error_reporting(32767);
+
+$output = '';
 
 try {
-  $dbh = db_connect();
+  $conn = db_connect();
 } catch (Exception $error) {
   set_page_body("Sorry, but something went wrong. Please check back later.");
   return; 
@@ -21,38 +24,57 @@ EOT
 	return; // Exits the included script and allows the rest of index.php to execute.
 }
 
-
-
-$train_type = $_REQUEST['train_type'] ?? null;
-
-// if (!is_null($train_type) || !in_array($train_type, ['strength', 'defense', 'agility' /*, .... */]) ) {
-
-if (!is_null($train_type)) {
-  if ($train_type == 'strength') {
-	  // update user set energy = energy - 1 where userid = ?
-	  // check and see that the energy was actually taken.
-	  // If not, tell user
-	  if ($error) {
-		  $training_result = 'sorry, but you are out of energy'; // return;
-	  } else {
-		// train strength, by executing sql (update user_stat set strength = strength + 1 where userid = ? )
-		  // select...
-		 $training_result = 'you now have strength: ?'; // return;
-	  }
-	  
-  }
-      
-      // handle agility training
+if (!isset($_SESSION['energy'])){
+	$_SESSION['energy'] = 3;
 }
 
-// Whether someone is training or not, reshow the gym training form (which I haven't added to the set_page_body() function call).
+if ($_SESSION['energy'] == 0) {
+	$_SESSION['energy'] = 3;
+}
+
+
+$training = $_REQUEST['training'] ?? null;
+
+
+$rnd1 = random_int(0,3);
+$rnd2 = random_int(0,3);
+$rnd3 = random_int(0,3);
+$rnd4 = random_int(0,3);
+
+ 
+if (!is_null($training)){
+	$_SESSION['energy'] = $_SESSION['energy'] - 1;
+	$output = "Training was a success! <br>
+			Strength +{$rnd1}<br>
+			Defense +{$rnd2}<br>
+			Speed +{$rnd3}<br>
+			Dexterity+{$rnd4}<br> <br>";
+
+      $user->strength = $user->strength + $rnd1;
+      $user->defense = $user->defense + $rnd2;
+	$user->speed = $user->speed + $rnd3;
+	$user->dexterity = $user->dexterity + $rnd4;
+	
+	$stmt = $conn->stmt_init();
+
+if ($stmt->prepare('update user_stat set strength = ?, defense = ?, speed = ?, dexterity = ? where userid = ?') && 
+       $stmt->bind_param('iiiis', $user->strength, $user->defense, $user->speed, $user->dexterity, $user->userid) && $stmt->execute()) {} else { }  
+
+     $stmt->close();
+}
+
 
 set_page_body(<<<EOT
 <form method="post" action="index.php?p=gym">
-<input type="button" name="train_type" value="strength" Train strength<br>
-<input type="button" name="train_type" value="agility" Train agility<br>
-Train defense<br>
-$training_result
+{$output}
+Stats:<br>
+Strength: {$user->strength} <br>
+Defense: {$user->defense} <br>
+Speed: {$user->speed} <br>
+Dexterity: {$user->dexterity} <br> <br>
+Energy: {$_SESSION['energy']}/ 3 <br>
+<input type="submit" name="training" value="training"> <br>
+</form>
 EOT
 );
 
