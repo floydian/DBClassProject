@@ -73,7 +73,11 @@ switch ($p) {
 		
 	case 'new_page_name': require_once('../pages/new_page_name.php'); break;
 	
+	case 'delete': require_once('../pages/delete.php'); break;
+	
 	case 'user_list': require_once('../pages/user_list.php'); break;
+	
+	case 'top_players': require_once('../pages/top_players.php'); break;
 		
 	case 'add_users': require_once('../pages/add_users.php'); break;
 		
@@ -112,8 +116,10 @@ Defense: {$main_content['defense']}
 	<ul>
 		<li><a href="index.php?p=home">Home</a></li>
 		<li><a href="index.php?p=user_list">Player List</a></li>
+		<li><a href="index.php?p=top_players">Top Players</a></li>
 		<li><a href="index.php?p=gym">Gym</a></li>
 		<li><a href="index.php?p=add_users">Add Test Users</a></li>
+		<li><a href="index.php?p=delete">Delete My Account</a></li>
 	</ul>
 </header>
 
