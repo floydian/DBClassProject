@@ -370,8 +370,16 @@ class User implements Serializable {
 		) = unserialize($data);
 	}
 	
+	private $doNotSave = false;
+	
+	public function doNotSave() {
+		$this->doNotSave = true;
+	}
+	
 	public function __destruct() {
-		$_SESSION['user'] = serialize($this);
+		if (!$this->doNotSave) {
+			$_SESSION['user'] = serialize($this);
+		}
 	}
 }
 
