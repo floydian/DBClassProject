@@ -108,6 +108,7 @@ if ($can_create_users) {
 
 
 set_page_body(<<<EOT
+<p><b>This page displays the use of a Mysql insert (creating 100 uesrs)</b></p>
 $message
 Login names: Test.Login.##<br>
 Password: Test.Pass.##<br>

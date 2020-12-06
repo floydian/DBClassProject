@@ -8,6 +8,8 @@ try {
   return; 
 }
 
+// Player does not need to be logged in.
+/*
 try {
 	$user = User::load();
 } catch (Exception $error) {
@@ -15,6 +17,7 @@ try {
 	require('login.php');
 	return;
 }
+*/
 
 $num_users = 0;
 $stmt =  $conn->stmt_init();
@@ -53,7 +56,7 @@ $offset = $rpp * ($page_num - 1);
 
 $user_list = '';
 $stmt =  $conn->stmt_init();
-if ($stmt->prepare("select userid, display_name, last_login, join_date from user limit ?, ?")) {
+if ($stmt->prepare("call userList(?, ?)")) {
 	if ($stmt->bind_param('ss', $offset, $rpp)) {
 		if ($stmt->execute()) {
 			$result = $stmt->get_result();
@@ -101,6 +104,7 @@ if ($page_num > 1) {
 
 set_page_body(<<<EOT
 <h3>Player List</h3>
+<p><b>This page displays the use of a MySQL Prepared Statement</b></p>
 <form method="GET" action="index.php">
 	Display <input type="text" name="rpp" value="$rpp" size="4"> players |
 	Page <input type="text" name="page_num" value="$page_num" size="4">
